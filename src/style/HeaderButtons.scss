@@ -1,0 +1,47 @@
+.header-button-container {
+    margin: 0 20px;
+    position: relative;
+    display: flex;
+    float: right;
+    z-index: 0;
+    height: 80px;
+    justify-content: space-between;
+    align-items: center;
+    min-width: 270px;
+
+    .switch-theme-button {
+        display: inline-block;
+        position: relative;
+        float: right;
+    }
+
+    .switch {
+        position: sticky;
+        display: inline-block;
+        height: 24px;
+        width: 190px;
+        float: left;
+        font-family: "Liberation Mono", monospace;
+    }
+
+    .data-info-button {
+        display: inline-block;
+        position: relative;
+        float: right;
+        font-weight: 800;
+        height: 25px;
+        width: 25px;
+        background-color: var(--color-white);
+        color: var(--color-black);
+        border-radius: 50%;
+        border: 2px solid var(--color-black);
+        cursor: pointer;
+        text-align: center;
+        font-family: "Liberation Mono", monospace;
+
+        &:hover {
+            background: var(--color-black);
+            color: var(--color-white);
+        }
+    }
+}

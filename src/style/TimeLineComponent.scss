@@ -1,7 +1,31 @@
 .timeline-outer {
-    height: 20vh;
-    min-width: 100vw;
+    height: 100%;
     display: flex;
+    justify-content: space-between;
+
+    .play-button {
+        position: relative;
+        background-color: transparent;
+        display: inline-flex;
+        height: 20px;
+        top: -6px;
+        border-color: transparent transparent transparent var(--color-black);
+        transition: 100ms ease;
+        transition-property: border-bottom-width, border-top-width;
+        will-change: border-width;
+        cursor: pointer;
+        margin: auto 0;
+
+        // play state
+        border-style: solid;
+        border-width: 10px 0 10px 15px;
+
+        // paused state
+        &.pause {
+            border-style: double;
+            border-width: 0 0 0 15px;
+        }
+    }
 }
 
 .timeline-outer * {
@@ -13,15 +37,16 @@
     $line-height: 20px;
     $bullet-radius: 5px;
     $line-thick: 2px;
-    $strip-color: #333;
-    $next-color: #666;
-    $current-color: #333;
-    $prev-color: #333;
-    $num-of-dots: 11;
+    $strip-color: var(--color-black);
+    $next-color: var(--color-gray-1);
+    $current-color: var(--color-black);
+    $prev-color: var(--color-black);
 
     display: inline-flex;
-    width: 91%;
-    margin: auto;
+    justify-content: flex-end;
+    margin: auto 0 auto 0;
+    width: 105%;
+    flex-direction: column;
 
     > div {
         display: flex;
@@ -34,15 +59,18 @@
 
             // Line
             div {
-                width: 91vw / $num-of-dots;
+                position: relative;
+                width: 100%;
+                font-size: 1em;
+                pointer-events: none;
 
                 p {
-                    text-align: left;
-                    align-content: end;
-                    position: absolute;
+                    font-family: "Liberation Mono", monospace;
                     margin: 0;
-                    padding: 0;
-                    left: -18px;
+                    cursor: pointer;
+                    display: inline-block;
+                    pointer-events: all;
+                    position: relative;
                 }
 
                 &.current {
@@ -53,12 +81,13 @@
                         background: $current-color;
                         padding: $bullet-radius * 2.5 2px;
                         transform: translateY(-30%) translateX(-50%);
-                        transition: all 0.2s 0.15s cubic-bezier(0.175, 0.885, 0.32, 2);
+                        transition: 0.2s 0.15s cubic-bezier(0.175, 0.885, 0.32, 2);
+                        transition-property: padding-top, padding-left, padding-right, padding-top, transform;
                     }
 
                     &:after {
                         width: 0;
-                        transition: all 0.2s ease-out;
+                        transition: width 0.2s ease-out;
                     }
 
                     ~ div {
@@ -85,7 +114,11 @@
                     position: absolute;
                     top: -$gap;
                     transform: translateX(-50%) translateY(-35%);
-                    transition: all 0.2s ease;
+                    transition: padding 0.2s ease;
+                    left: $gap/1.1;
+                    cursor: pointer;
+                    pointer-events: all;
+                    border-radius: 4px;
                 }
 
                 // Line
@@ -95,30 +128,31 @@
                     border-radius: 2px;
                     position: absolute;
                     top: -$gap;
+                    left: $gap/1.1;
                     width: 101%;
                     height: $line-thick;
-                    transition: all 0.2s ease;
+                    transition: width 0.2s ease;
                 }
             }
         }
 
         // Transparent Line
         &.above {
-            padding-bottom: $gap;
+            position: relative;
+            width: 100%;
+            top: 24px;
 
             div {
-                &:last-of-type:after {
-                    display: none;
-                }
-
                 &:after {
                     content: "";
-                    background: fade_out($strip-color, 0.9); //rgba(0, 0, 0, 0.6);
+                    background: var(--color-gray-4);
                     border-radius: 2px;
-                    position: absolute;
-                    width: 91vw;
+                    position: relative;
+                    width: calc(100% + 10px);
+                    left: -30px;
                     height: 1px;
                     transform: translateY(50%);
+                    display: block;
                 }
             }
         }
@@ -127,6 +161,7 @@
             flex: 1;
             position: relative;
             cursor: default;
+
             &:last-of-type {
                 flex: 0;
             }
